@@ -1,4 +1,4 @@
-# Order and Chaos Program
+# Order and Chaos Python Program
 
 
 # importing all necessary libraries
@@ -6,12 +6,12 @@ import numpy as np
 import random
 
 
-# Creates an empty board (Done)
+# Creates an empty game board (Done)
 def create_board(size):
     return np.array([['~'] * size for i in range(size)])
 
 
-# Prints the game board (Done)
+# Prints the game board with iteration number (Done)
 def print_board(board, counter):
     size = len(board)
     if counter < 2: print("Board after", str(counter), "move")
@@ -34,7 +34,8 @@ def possibilities(board):
     return(l)
 
 
-# Checks whether the Order has SIZE (not size - 1) marks in a horizontal row 
+# Checks whether Order has SIZE marks in a horizontal row
+# TODO: checks whether Order has size - 1 marks in a horizontal row
 def row_win(board):
     for x in range(len(board)):
         win = True
@@ -54,7 +55,8 @@ def row_win(board):
     return(win)
 
 
-# Checks whether the player has SIZE (not size - 1) marks in a vertical column
+# Checks whether Order has SIZE marks in a vertical column
+# TODO: checks whether Order has size - 1 marks in a vertical column
 def col_win(board):
     for x in range(len(board)):
         win = True
@@ -74,7 +76,8 @@ def col_win(board):
     return(win)
 
 
-# Checks whether the player has SIZE (not size - 1) marks on a diagonal
+# Checks whether Order has SIZE marks on a diagonal
+# TODO: checks whether Order has size - 1 marks on a diagonal
 def diag_win(board):
     win = True
     y = 0
@@ -115,7 +118,7 @@ def evaluate(board):
     return winner
 
 
-# Select a random place for the player (Done)
+# Select a random place and place a random mark (Done)
 def random_move(board):
     selection = possibilities(board)
     current_loc = random.choice(selection)
@@ -128,7 +131,7 @@ def play_game(size):
     board, winner, counter = create_board(size), None, 0
     print_board(board, counter)
     for i in range(size ** 2):
-      board = random_place(board)
+      board = random_move(board)
       counter += 1
       print_board(board, counter)
       winner = evaluate(board)
