@@ -35,20 +35,16 @@ def possibilities(board):
 
 
 # Checks whether Order has SIZE marks in a horizontal row
-# TODO: checks whether Order has size - 1 marks in a horizontal row
 def row_win(board):
-    for x in range(len(board)):
-        win = True
-        for y in range(len(board)):
-            if board[x, y] != 'X':
-                win = False
-                break
-        if win: return(win)
+    return row_win_helper(board, 'X') or row_win_helper(board, 'O')
 
+# Helper function for row_win
+# TODO: checks whether Order has size - 1 marks in a horizontal row
+def row_win_helper(board, mark):
     for x in range(len(board)):
         win = True
         for y in range(len(board)):
-            if board[x, y] != 'O':
+            if board[x, y] != mark:
                 win = False
                 break
         if win: return(win)
@@ -56,54 +52,41 @@ def row_win(board):
 
 
 # Checks whether Order has SIZE marks in a vertical column
-# TODO: checks whether Order has size - 1 marks in a vertical column
 def col_win(board):
+    return col_win_helper(board, 'X') or col_win_helper(board, 'O')
+
+# Helper function for col_win
+# TODO: checks whether Order has size - 1 marks in a vertical column
+def col_win_helper(board, mark):
     for x in range(len(board)):
         win = True
         for y in range(len(board)):
-            if board[y][x] != 'X':
-                win = False
-                break
-        if win: return(win)
-    
-    for x in range(len(board)):
-        win = True
-        for y in range(len(board)):
-            if board[y][x] != 'O':
+            if board[y][x] != mark:
                 win = False
                 break
         if win: return(win)
     return(win)
-
+    
 
 # Checks whether Order has SIZE marks on a diagonal
-# TODO: checks whether Order has size - 1 marks on a diagonal
-def diag_win(board):
-    win = True
-    y = 0
-    for x in range(len(board)):
-        if board[x, x] != 'X':
-            win = False
-    if win: return win
-    win = True
-    if win:
-        for x in range(len(board)):
-            y = len(board) - 1 - x
-            if board[x, y] != 'X':
-                win = False
-    if win: return win
 
+def diag_win(board):
+    return diag_win_helper(board, 'X') or diag_win_helper(board, 'O')
+
+# Helper function for diag_win
+# TODO: checks whether Order has size - 1 marks on a diagonal
+def diag_win_helper(board, mark):
     win = True
     y = 0
     for x in range(len(board)):
-        if board[x, x] != 'O':
+        if board[x, x] != mark:
             win = False
     if win: return win
     win = True
     if win:
         for x in range(len(board)):
             y = len(board) - 1 - x
-            if board[x, y] != 'O':
+            if board[x, y] != mark:
                 win = False
     return win
 
