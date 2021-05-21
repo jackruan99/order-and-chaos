@@ -69,7 +69,6 @@ def col_win_helper(board, mark):
     
 
 # Checks whether Order has SIZE marks on a diagonal
-
 def diag_win(board):
     return diag_win_helper(board, 'X') or diag_win_helper(board, 'O')
 
@@ -101,7 +100,7 @@ def evaluate(board):
     return winner
 
 
-# Select a random place and place a random mark (Done)
+# Place a ramdom mark on an empty spot (Done)
 def random_move(board):
     selection = possibilities(board)
     current_loc = random.choice(selection)
