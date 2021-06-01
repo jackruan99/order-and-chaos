@@ -91,7 +91,8 @@ def diag_win_helper(board, mark):
     return win
 
 
-# Evaluates whether Order or Chaos wins, or the game goes on (Done)
+# Evaluates whether Order or Chaos wins, or the game goes on 
+# Returns "Order" or "Chaos" if they win or None if no one wins (Done)
 def evaluate(board):
     winner = None
     if (row_win(board) or col_win(board) or diag_win(board)):
