@@ -13,14 +13,18 @@ def create_board(size):
 
 # Prints the game board with iteration number (Done)
 def print_board(board, counter):
-    if counter < 2: print("Board after", str(counter), "move")
-    else:           print("Board after", str(counter), "moves")
+    if counter < 2:
+        print("Board after", str(counter), "move")
+    else:
+        print("Board after", str(counter), "moves")
 
     size = len(board)
     print("-" * (4 * size + 1))
     for i, row in enumerate(board):
-        print(("|" + " {} |" * size).format(*[x if x != '~' else ' ' for x in row]))
-        if i != size - 1: print("|" + "---+" * (size - 1) + "---|")
+        print(("|" + " {} |" * size).format(*
+              [x if x != '~' else ' ' for x in row]))
+        if i != size - 1:
+            print("|" + "---+" * (size - 1) + "---|")
     print("-" * (4 * size + 1))
     print()
 
@@ -41,6 +45,8 @@ def row_win(board):
 
 # Helper function for row_win
 # TODO: checks whether Order has size - 1 marks in a horizontal row
+
+
 def row_win_helper(board, mark):
     for x in range(len(board)):
         win = True
@@ -48,7 +54,8 @@ def row_win_helper(board, mark):
             if board[x, y] != mark:
                 win = False
                 break
-        if win: return(win)
+        if win:
+            return(win)
     return(win)
 
 
@@ -58,6 +65,8 @@ def col_win(board):
 
 # Helper function for col_win
 # TODO: checks whether Order has size - 1 marks in a vertical column
+
+
 def col_win_helper(board, mark):
     for x in range(len(board)):
         win = True
@@ -65,9 +74,10 @@ def col_win_helper(board, mark):
             if board[y][x] != mark:
                 win = False
                 break
-        if win: return(win)
+        if win:
+            return(win)
     return(win)
-    
+
 
 # Checks whether Order has SIZE marks on a diagonal
 def diag_win(board):
@@ -75,13 +85,16 @@ def diag_win(board):
 
 # Helper function for diag_win
 # TODO: checks whether Order has size - 1 marks on a diagonal
+
+
 def diag_win_helper(board, mark):
     win = True
     y = 0
     for x in range(len(board)):
         if board[x, x] != mark:
             win = False
-    if win: return win
+    if win:
+        return win
     win = True
     if win:
         for x in range(len(board)):
@@ -91,7 +104,7 @@ def diag_win_helper(board, mark):
     return win
 
 
-# Evaluates whether Order or Chaos wins, or the game goes on 
+# Evaluates whether Order or Chaos wins, or the game goes on
 # Returns "Order" or "Chaos" if they win or None if no one wins (Done)
 def evaluate(board):
     winner = None
@@ -115,13 +128,13 @@ def play_game(size):
     board, winner, counter = create_board(size), None, 0
     print_board(board, counter)
     for i in range(size ** 2):
-      board = random_move(board)
-      counter += 1
-      print_board(board, counter)
-      winner = evaluate(board)
-      if winner != None:
-          print(winner, "WINS!")
-          break
+        board = random_move(board)
+        counter += 1
+        print_board(board, counter)
+        winner = evaluate(board)
+        if winner != None:
+            print(winner, "WINS!")
+            break
 
 
 # Driver Code
