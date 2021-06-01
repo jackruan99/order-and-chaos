@@ -6,7 +6,8 @@ import numpy as np
 import random
 
 
-# Creates an empty game board (Done)
+# Creates an empty game board
+# Returns a size x size board where '~' denotes a spot is empty (Done)
 def create_board(size):
     return np.array([['~'] * size for i in range(size)])
 
@@ -105,7 +106,7 @@ def diag_win_helper(board, mark):
 
 
 # Evaluates whether Order or Chaos wins, or the game goes on
-# Returns "Order" or "Chaos" if they win or None if no one wins (Done)
+# Returns "Order", "Chaos" or None (Done)
 def evaluate(board):
     winner = None
     if (row_win(board) or col_win(board) or diag_win(board)):
