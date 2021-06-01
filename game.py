@@ -1,7 +1,7 @@
 # Order and Chaos Python Program
 
 
-# importing all necessary libraries
+# Importing all necessary libraries
 import numpy as np
 import random
 
@@ -13,9 +13,10 @@ def create_board(size):
 
 # Prints the game board with iteration number (Done)
 def print_board(board, counter):
-    size = len(board)
     if counter < 2: print("Board after", str(counter), "move")
-    else: print("Board after", str(counter), "moves")
+    else:           print("Board after", str(counter), "moves")
+
+    size = len(board)
     print("-" * (4 * size + 1))
     for i, row in enumerate(board):
         print(("|" + " {} |" * size).format(*[x if x != '~' else ' ' for x in row]))
