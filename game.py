@@ -87,7 +87,7 @@ def diag_win(board):
 
 # Helper function for diag_win
 def diag_win_helper(board, mark):
-    top_left_starts = [(0,0), (0,1), (1,0), (1,1)] # This is hard coded
+    top_left_starts = [(0,0), (0,1), (1,0), (1,1)]
     for start in top_left_starts:
         x,y = start
         i = 0
@@ -121,7 +121,7 @@ def diag_win_helper(board, mark):
 
 
 # Evaluates whether Order or Chaos wins, or the game goes on
-# Returns "Order", "Chaos" or None (Done)
+# Returns "Order", "Chaos" or None
 def evaluate(board):
     winner = None
     if (row_win(board) or col_win(board) or diag_win(board)):
@@ -131,7 +131,7 @@ def evaluate(board):
     return winner
 
 
-# Place a ramdom mark on an empty spot (Done)
+# Place a ramdom mark on an empty spot
 def random_move(board):
     selection = possibilities(board)
     current_loc = random.choice(selection)
@@ -141,10 +141,10 @@ def random_move(board):
 
 # Main function to start the game
 def play_game(size):
+    # plays randomly
     board, winner, counter = create_board(size), None, 0
     print_board(board, counter)
-
-    for i in range(size ** 2):  # plays randomly
+    for i in range(size ** 2):  
         board = random_move(board)
         counter += 1
         print_board(board, counter)
@@ -152,6 +152,7 @@ def play_game(size):
         if winner != None:
             print(winner, "WINS!")
             break
+
 
 
 # Driver Code
