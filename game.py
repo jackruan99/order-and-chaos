@@ -12,7 +12,7 @@ def create_board(size):
     return np.array([['~'] * size for i in range(size)])
 
 
-# Prints the game board with iteration number (Done)
+# Prints the game board with iteration number
 def print_board(board, counter):
     if counter < 2:
         print("Board after", str(counter), "move")
@@ -30,7 +30,7 @@ def print_board(board, counter):
     print()
 
 
-# Checks and returns all empty places on board (Done)
+# Checks and returns all empty places on board
 def possibilities(board):
     l = []
     for i in range(len(board)):
@@ -40,69 +40,84 @@ def possibilities(board):
     return(l)
 
 
-# Checks whether Order has SIZE marks in a horizontal row
+# Checks whether Order has size - 1 marks in a horizontal row
 def row_win(board):
     return row_win_helper(board, 'X') or row_win_helper(board, 'O')
 
+
 # Helper function for row_win
-# TODO: checks whether Order has size - 1 marks in a horizontal row
-
-
 def row_win_helper(board, mark):
     for x in range(len(board)):
-        win = True
-        for y in range(len(board)):
-            if board[x, y] != mark:
-                win = False
+        first = board[x][0] == mark
+        last = board[x][len(board)-1] == mark
+        middle = True
+        for y in range(1, len(board)-1):
+            if board[x][y] != mark:
+                middle = False
                 break
-        if win:
-            return(win)
-    return(win)
+        if (first or last) and middle:
+            return True
+    return False
 
 
-# Checks whether Order has SIZE marks in a vertical column
+# Checks whether Order has size - 1 marks in a vertical column
 def col_win(board):
     return col_win_helper(board, 'X') or col_win_helper(board, 'O')
 
+
 # Helper function for col_win
-# TODO: checks whether Order has size - 1 marks in a vertical column
-
-
 def col_win_helper(board, mark):
-    for x in range(len(board)):
-        win = True
-        for y in range(len(board)):
-            if board[y][x] != mark:
-                win = False
+    for y in range(len(board)):
+        first = board[0][y] == mark
+        last = board[len(board)-1][y] == mark
+        middle = True
+        for x in range(1, len(board)-1):
+            if board[x][y] != mark:
+                middle = False
                 break
-        if win:
-            return(win)
-    return(win)
+        if (first or last) and middle:
+            return True
+    return False
 
 
-# Checks whether Order has SIZE marks on a diagonal
+# Checks whether Order has size - 1 marks on a diagonal
 def diag_win(board):
     return diag_win_helper(board, 'X') or diag_win_helper(board, 'O')
 
+
 # Helper function for diag_win
-# TODO: checks whether Order has size - 1 marks on a diagonal
-
-
 def diag_win_helper(board, mark):
-    win = True
-    y = 0
-    for x in range(len(board)):
-        if board[x, x] != mark:
-            win = False
-    if win:
-        return win
-    win = True
-    if win:
-        for x in range(len(board)):
-            y = len(board) - 1 - x
-            if board[x, y] != mark:
+    top_left_starts = [(0,0), (0,1), (1,0), (1,1)] # This is hard coded
+    for start in top_left_starts:
+        x,y = start
+        i = 0
+        win = True
+        while i < (len(board)-1):
+            if board[x][y] != mark:
                 win = False
-    return win
+                break
+            x += 1
+            y += 1
+            i += 1
+        if win:
+            return True
+
+    top_right_starts = [(0, len(board)-1), (0,len(board)-2), (1,len(board)-1), (1,len(board)-2)] # This is hard coded
+    for start in top_right_starts:
+        x,y = start
+        i = 0
+        win = True
+        while i < (len(board)-1):
+            if board[x][y] != mark:
+                win = False
+                break
+            x += 1
+            y -= 1
+            i += 1
+        if win:
+            return True
+    
+    return False
 
 
 # Evaluates whether Order or Chaos wins, or the game goes on
@@ -128,7 +143,8 @@ def random_move(board):
 def play_game(size):
     board, winner, counter = create_board(size), None, 0
     print_board(board, counter)
-    for i in range(size ** 2):
+
+    for i in range(size ** 2):  # plays randomly
         board = random_move(board)
         counter += 1
         print_board(board, counter)
