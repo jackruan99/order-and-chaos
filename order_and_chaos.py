@@ -133,8 +133,8 @@ def evaluate(board):
 
 # Place a ramdom mark on an empty spot
 def random_move(board):
-    selection = possibilities(board)
-    current_loc = random.choice(selection)
+    selections = possibilities(board)  # This is repetitive, can be improved
+    current_loc = random.choice(selections)
     board[current_loc] = random.choice(['X', 'O'])
     return(board)
 
@@ -142,7 +142,9 @@ def random_move(board):
 # Main function to start the game
 def play_game(size):
     # plays randomly
-    board, winner, counter = create_board(size), None, 0
+    board = create_board(size)
+    winner = None
+    counter = 0
     print_board(board, counter)
     for i in range(size ** 2):  
         board = random_move(board)
@@ -154,6 +156,17 @@ def play_game(size):
             break
 
 
+# Find all possible boards
+def all_possibilities(size):
+    board = create_board(size)
+    winner = None
+    counter = 0
+    print_board(board, counter)
+    selections = possibilities(board)
+
+
 
 # Driver Code
-play_game(6)
+# play_game(6)
+all_possibilities(2)
+
